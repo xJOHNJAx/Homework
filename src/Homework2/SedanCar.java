@@ -19,7 +19,6 @@ class SedanCar extends Car {
         System.out.println("Driving License Category: " + this.drivingLicenseCategory);
     }
 
-
     @Override
     public boolean unlock(Key key) {
         if (this.key.equals(key)) {

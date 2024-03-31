@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-package Homework1;
+
 
 public class Animal {
     String name;

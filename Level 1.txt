@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package Homework1;
 
 public class Animal {
@@ -13,4 +14,5 @@ public class Animal {
         System.out.println("Animal: " + name + ", Age: " + age);
     }
 }
+
 

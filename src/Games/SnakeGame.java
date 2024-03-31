@@ -1,0 +1,115 @@
+package Games;
+
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class SnakeGame {
+    private static final int WIDTH = 20;
+    private static final int HEIGHT = 20;
+    private static final char SNAKE_CHAR = '*';
+    private static final char FOOD_CHAR = 'X';
+    private static final char EMPTY_CHAR = '.';
+    private LinkedList<int[]> snake;
+    private int[] food;
+    private char direction = 'R'; // R, L, U, D
+
+    public SnakeGame() {
+        snake = new LinkedList<>();
+        snake.add(new int[]{HEIGHT / 2, WIDTH / 2});
+        generateFood();
+    }
+
+    public void generateFood() {
+        int x = (int) (Math.random() * WIDTH);
+        int y = (int) (Math.random() * HEIGHT);
+        food = new int[]{y, x};
+    }
+
+    public void move() {
+        int[] head = snake.peekFirst().clone();
+        switch (direction) {
+            case 'R':
+                head[1]++;
+                break;
+            case 'L':
+                head[1]--;
+                break;
+            case 'U':
+                head[0]--;
+                break;
+            case 'D':
+                head[0]++;
+                break;
+        }
+        if (head[0] < 0 || head[0] >= HEIGHT || head[1] < 0 || head[1] >= WIDTH || contains(snake, head)) {
+            throw new IllegalStateException("Game Over");
+        }
+        snake.addFirst(head);
+        if (head[0] == food[0] && head[1] == food[1]) {
+            generateFood();
+        } else {
+            snake.removeLast();
+        }
+    }
+
+    public boolean contains(LinkedList<int[]> snake, int[] pos) {
+        for (int[] s : snake) {
+            if (s[0] == pos[0] && s[1] == pos[1]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void printBoard() {
+        char[][] board = new char[HEIGHT][WIDTH];
+        for (int[] s : snake) {
+            board[s[0]][s[1]] = SNAKE_CHAR;
+        }
+        board[food[0]][food[1]] = FOOD_CHAR;
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                if (board[i][j] == 0) {
+                    board[i][j] = EMPTY_CHAR;
+                }
+                System.out.print(board[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    public void setDirection(char dir) {
+        direction = dir;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        SnakeGame game = new SnakeGame();
+        while (true) {
+            game.printBoard();
+            System.out.println("Введите направление (W - вверх, A - влево, S - вниз, D - вправо): ");
+            char dir = scanner.nextLine().toUpperCase().charAt(0);
+            switch (dir) {
+                case 'W':
+                    game.setDirection('U');
+                    break;
+                case 'A':
+                    game.setDirection('L');
+                    break;
+                case 'S':
+                    game.setDirection('D');
+                    break;
+                case 'D':
+                    game.setDirection('R');
+                    break;
+            }
+            try {
+                game.move();
+            } catch (IllegalStateException e) {
+                System.out.println(e.getMessage());
+                break;
+            }
+        }
+        scanner.close();
+    }
+}

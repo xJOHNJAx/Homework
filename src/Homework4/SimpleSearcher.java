@@ -1,5 +1,5 @@
 package Homework4;
-class SimpleSearcher implements TextSearcher {
+public class SimpleSearcher implements TextSearcher {
     @Override
     public int search(String text, String wordToFind) {
         int count = 0;

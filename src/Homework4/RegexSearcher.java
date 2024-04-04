@@ -3,7 +3,7 @@ package Homework4;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class RegexSearcher implements TextSearcher {
+public class RegexSearcher implements TextSearcher {
     @Override
     public int search(String text, String wordToFind) {
         int count = 0;

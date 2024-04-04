@@ -29,7 +29,7 @@ public class AlarmCodes {
         AlarmCodes alarmCodes = new AlarmCodes();
 
 // Пример получения описания сигнализации по коду
-        String alarmDescription = alarmCodes.getAlarmDescription("400");
-        System.out.println("Описание сигнализации для кода 400: " + alarmDescription);
+        String alarmDescription = alarmCodes.getAlarmDescription("100");
+        System.out.println("Описание сигнализации для кода 100: " + alarmDescription);
     }
 }
